@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import * as wb from 'react-native-webbrowser'
 
 export default function TabTwoScreen() {
   return (
@@ -13,7 +14,6 @@ export default function TabTwoScreen() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
