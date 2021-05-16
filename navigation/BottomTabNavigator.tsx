@@ -12,6 +12,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import TasksScreen from '../screens/TasksScreen';
 import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -39,7 +40,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="Tasks"
-        component={TabTwoNavigator}
+        component={TasksNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
         }}
@@ -63,8 +64,8 @@ function TabOneNavigator() {
     <TabOneStack.Navigator>
       <TabOneStack.Screen
         name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
+        component={TasksScreen}
+        options={{ headerTitle: 'Likes' }}
       />
     </TabOneStack.Navigator>
   );
@@ -78,7 +79,18 @@ function TabTwoNavigator() {
       <TabTwoStack.Screen
         name="TabTwoScreen"
         component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
+        options={{ headerTitle: 'Follows' }}
+      />
+    </TabTwoStack.Navigator>
+  );
+}
+function TasksNavigator() {
+  return (
+    <TabTwoStack.Navigator>
+      <TabTwoStack.Screen
+        name="TabTwoScreen"
+        component={TasksScreen}
+        options={{ headerTitle: 'Tasks' }}
       />
     </TabTwoStack.Navigator>
   );

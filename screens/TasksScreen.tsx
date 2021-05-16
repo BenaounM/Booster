@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ImageBackground, Dimensions  } from 'react-native';
 
-import EditFollowsScreenInfo from '../components/EditFollowsScreenInfo';
+import EditTasksScreenInfo from '../components/EditTasksScreenInfo';
 import { Text, View } from '../components/Themed';
-import * as wb from 'react-native-webbrowser'
 
-export default function TabTwoScreen() {
+export default function TasksScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Follows</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditFollowsScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
+      <EditTasksScreenInfo path="/screens/TabTwoScreen.tsx" />
+      </View>
   );
 }
 const styles = StyleSheet.create({
@@ -23,6 +21,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    alignContent: 'center',
   },
   separator: {
     marginVertical: 30,
