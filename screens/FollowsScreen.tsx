@@ -5,12 +5,12 @@ import EditFollowsScreenInfo from '../components/EditFollowsScreenInfo';
 import { Text, View } from '../components/Themed';
 import * as wb from 'react-native-webbrowser'
 
-export default function TabTwoScreen() {
+export default function FollowsScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Follows</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditFollowsScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <EditFollowsScreenInfo path="/screens/FollowsScreen.tsx" />
     </View>
   );
 }

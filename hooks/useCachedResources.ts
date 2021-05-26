@@ -13,10 +13,12 @@ export default function useCachedResources() {
         SplashScreen.preventAutoHideAsync();
 
         // Load fonts
+        for(let i = 0; i < 50000; i++){
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
         });
+      }
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);

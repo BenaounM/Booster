@@ -21,8 +21,8 @@ export default function EditLikesScreenInfo({ path }: { path: string }) {
         />
       </ImageBackground>
       </View>
-
     </View>
+    
   );
 }
 

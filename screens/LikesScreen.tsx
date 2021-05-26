@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { StyleSheet, ImageBackground, Dimensions  } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import EditTasksScreenInfo from '../components/EditTasksScreenInfo';
+import EditLikesScreenInfo from '../components/EditLikesScreenInfo';
 import { Text, View } from '../components/Themed';
 
-export default function TasksScreen() {
+export default function LikesScreen() {
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Likes</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditTasksScreenInfo path="/screens/TasksScreen.tsx" />
-      </View>
+      <EditLikesScreenInfo path="/screens/LikesScreen.tsx" />
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,7 +23,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    alignContent: 'center',
   },
   separator: {
     marginVertical: 30,

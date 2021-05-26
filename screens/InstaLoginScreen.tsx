@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 
-import EditLikesScreenInfo from '../components/EditLikesScreenInfo';
+import EditFollowsScreenInfo from '../components/EditFollowsScreenInfo';
 import { Text, View } from '../components/Themed';
+import * as wb from 'react-native-webbrowser'
 
-export default function TabOneScreen() {
+export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Likes</Text>
+      <Text style={styles.title}>Follows</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditLikesScreenInfo path="/screens/TabOneScreen.tsx" />
+      <EditFollowsScreenInfo path="/screens/InstaLoginScreen.tsx" />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

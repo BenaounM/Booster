@@ -9,12 +9,12 @@ import { Text, View } from './Themed';
 
 export default function EditFollowsScreenInfo({ path }: { path: string }) {
   const runFirst = `
+
   var followButtClassName = "";
   var followButtons = document.getElementsByTagName("button");
-  instaLoading = true;
   for (var i = 0; i < followButtons.length; i++) 
   {
-    instaLoading = false;
+  
   if (followButtons[i].innerHTML == "Follow") 
   {
     // found it ...
@@ -24,37 +24,29 @@ export default function EditFollowsScreenInfo({ path }: { path: string }) {
 
   }
 
-  var ignoredElems = document.getElementsByTagName("*");
-  var ignoredTags = ["NAV","ARTICLE","A","UL"];
-  for (var i = 0; i < ignoredElems.length; i++) 
-   {
-      if (ignoredTags.includes(ignoredElems[i].tagName)) 
-       {
-        ignoredElems[i].style.display = 'none';
-       }
-      if (ignoredTags.includes(ignoredElems[i].tagName)) 
-       {
-          ignoredElems[i].style.display = 'none';
-       }
-   }
+var ignoredElems = document.getElementsByTagName("*");
+var ignoredTags = ["NAV","ARTICLE","A","UL"];
+for (var i = 0; i < ignoredElems.length; i++) 
+{
+  if (ignoredTags.includes(ignoredElems[i].tagName)) 
+  {
+     ignoredElems[i].style.display = 'none';
+  }
+  if (ignoredTags.includes(ignoredElems[i].tagName)) 
+  {
+     ignoredElems[i].style.display = 'none';
+  }
+}
 
-  var followElems = document.getElementsByClassName(followButtClassName);
-  if (followElems.length == 1) 
-    {
-       alert("Now the user clicks on Follow");
-    }
-  else if (followElems.length == 0 && !instaLoading) 
-    {
-       alert("Already followed, skip to next follow");
-    }
+var followElems = document.getElementsByClassName(followButtClassName);
+alert(followElems.length);
+  for (var i = 0; i < followElems.length; i++) {
+    followElems[i].onclick = function() 
+  {
+    alert("follow was clicked");
+  }
 
-   for (var i = 0; i < followElems.length; i++) 
-    {
-     followElems[i].onclick = function() 
-      {
-        alert("follow was clicked");
-      }
-    }
+}
 `;
   return (
     <View
