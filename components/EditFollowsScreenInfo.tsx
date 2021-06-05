@@ -1,13 +1,24 @@
 import * as WebBrowser from 'expo-web-browser';
 import {WebView} from 'react-native-webview'
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import { Platform, StyleSheet, Button, Alert, Dimensions, ImageBackground } from 'react-native';
 
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 
-export default function EditFollowsScreenInfo({ path }: { path: string }) {
+export default function EditLikesScreenInfo({ credit }: { credit: number }) {
+
+  
+  const mainUrl = "https://www.instagram.com/";
+  var webview = null;
+  var userFollow = 'meme.zone.gl';
+  var buttText = "Skip";
+  
+  var profiles = ["amirachebli", "arbi_mogaadi","nassimbourguiba","nass.mzughi","arabambition_","mahdi.baccouch","motivation_gagnant",
+  "nourkamark","rayen_officiel_9","mortadha_benouanes","meriem_ben_moulehem__malika","hassanayari","souhir_sah","zina_gassrinia",
+  "chawat____22","djalilpalermo_off","marc.lamti","hamza_lahmar7","maaloul_ali_","_amal_fathi","emna_lotfi"]
+
   const runFirst = `
   var followButtClassName = "";
   var followButtons = document.getElementsByTagName("button");
@@ -45,14 +56,14 @@ export default function EditFollowsScreenInfo({ path }: { path: string }) {
     }
   else if (followElems.length == 0 && !instaLoading) 
     {
-       alert("Already followed, skip to next follow");
+      window.ReactNativeWebView.postMessage("Already followed, skip to next follow");
     }
 
    for (var i = 0; i < followElems.length; i++) 
     {
      followElems[i].onclick = function() 
       {
-        alert("follow was clicked");
+        window.ReactNativeWebView.postMessage("Follow clicked");
       }
     }
 `;
@@ -60,18 +71,32 @@ export default function EditFollowsScreenInfo({ path }: { path: string }) {
     <View
      style={{
       flexDirection: "column",
-      padding: 10, bak : "#F51720"
+      padding: 10
      }}>
-       <ImageBackground style={{flex: 0}} source={require('../assets/images/insta-bg.jpg')}>
-      <View style={{flex: 0.2}}>
+
+       <View style={{flex: 0.2}}>
+        <Text style = {{flex: 0.1}}>
+
+        </Text>
+      <Button
+        title={"Credit: " + credit + " Points"}
+        color= "#DAA520"
+        onPress={Skip}
+        />
+      </View>
+
+
+      <View style={{flex: 0.5}}>
         <WebView
-        source = {{uri:'www.instagram.com/meme.zone.gl'}}
+        ref={r => webview = r}
+        source = {{uri:mainUrl + userFollow}}
         style = {{marginTop: 10,height:400, width: Dimensions.get('window').width, flex: 0}}
         scrollEnabled = 'false'
         bounces={false}
         javaScriptEnabled
         scalesPageToFit = { Platform.OS === 'android'}
         injectedJavaScript={runFirst}
+        onMessage={Skip}
         />
       </View>
 
@@ -80,16 +105,26 @@ export default function EditFollowsScreenInfo({ path }: { path: string }) {
 
         </Text>
       <Button
-        title="Skip"
+        title= {buttText}
         color= "#0000ff"
-        onPress={() => Alert.alert('Button with adjusted color pressed')}
+        onPress={Skip}
         />
       </View>
-
-      </ImageBackground>
     </View>
   );
+  function Skip() {
+    const min = 0;
+    const max = profiles.length - 1;
+    const rand = parseInt((min + Math.random() * (max - min)).toString());
+    userFollow = profiles[rand];
+    const redirectTo = 'window.location = "' + mainUrl + userFollow + '"';
+    webview.injectedJavaScript =runFirst;
+    webview.injectJavaScript(redirectTo);
+    buttText = "ee"
+  }
 }
+
+
 
 function handleHelpPress() {
   WebBrowser.openBrowserAsync(

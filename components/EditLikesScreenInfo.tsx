@@ -1,25 +1,21 @@
 import * as WebBrowser from 'expo-web-browser';
 import {WebView} from 'react-native-webview'
-import React, {useState} from 'react';
-import { Platform, StyleSheet, Button, Alert, Dimensions, ImageBackground } from 'react-native';
+import React, {useState,Component } from 'react';
+import { Platform, StyleSheet,Alert, Button, Dimensions, ImageBackground } from 'react-native';
 
 import Colors from '../constants/Colors';
 import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 
-export default function EditLikesScreenInfo({ path }: { path: string }) {
-
-  
-  const mainUrl = "https://www.instagram.com/";
-  var webview = null;
-  var userFollow = 'meme.zone.gl';
-  var buttText = "Skip";
-  
-  var profiles = ["amirachebli", "arbi_mogaadi","nassimbourguiba","nass.mzughi","arabambition_","mahdi.baccouch","motivation_gagnant",
-  "nourkamark","rayen_officiel_9","mortadha_benouanes","meriem_ben_moulehem__malika","hassanayari","souhir_sah","zina_gassrinia",
-  "chawat____22","djalilpalermo_off","marc.lamti","hamza_lahmar7","maaloul_ali_","_amal_fathi","emna_lotfi"]
-
-  const runFirst = `
+export default class EditLikesScreenInfo extends Component {
+  constructor(props){
+    super(props);
+  this.state = {
+    credit: 50,
+    userFollow: 'meme.zone.gl',
+    mainUrl: "https://www.instagram.com/",
+    webview: null,
+    runFirst: `
   var followButtClassName = "";
   var followButtons = document.getElementsByTagName("button");
   instaLoading = true;
@@ -66,25 +62,42 @@ export default function EditLikesScreenInfo({ path }: { path: string }) {
         window.ReactNativeWebView.postMessage("Follow clicked");
       }
     }
-`;
+`
+  }
+  this.Add = this.Add.bind(this);
+  this.Skip = this.Skip.bind(this);
+}
+  render(){
+
   return (
     <View
      style={{
       flexDirection: "column",
       padding: 10
      }}>
-       <ImageBackground style={{flex: 0}} source={require('../assets/images/insta-bg.jpg')}>
+
+       <View style={{flex: 0.2}}>
+        <Text style = {{flex: 0.1}}>
+
+        </Text>
+      <Button
+        title={"Credit: " + this.state.credit + " Points"}
+        color= "#DAA520"
+        />
+      </View>
+
+
       <View style={{flex: 0.5}}>
         <WebView
-        ref={r => webview = r}
-        source = {{uri:mainUrl + userFollow}}
+        ref={r => this.state.webview = r}
+        source = {{uri:this.state.mainUrl + this.state.userFollow}}
         style = {{marginTop: 10,height:400, width: Dimensions.get('window').width, flex: 0}}
         scrollEnabled = 'false'
         bounces={false}
         javaScriptEnabled
         scalesPageToFit = { Platform.OS === 'android'}
-        injectedJavaScript={runFirst}
-        onMessage={Skip}
+        injectedJavaScript={this.state.runFirst}
+        onMessage={this.Add}
         />
       </View>
 
@@ -93,61 +106,40 @@ export default function EditLikesScreenInfo({ path }: { path: string }) {
 
         </Text>
       <Button
-        title= {buttText}
+        title= "Skip"
         color= "#0000ff"
-        onPress={Skip}
+        onPress={this.Skip}
         />
       </View>
-
-      </ImageBackground>
     </View>
   );
-  function Skip() {
-    const min = 0;
-    const max = profiles.length - 1;
-    const rand = parseInt((min + Math.random() * (max - min)).toString());
-    userFollow = profiles[rand];
-    const redirectTo = 'window.location = "' + mainUrl + userFollow + '"';
-    webview.injectedJavaScript =runFirst;
-    webview.injectJavaScript(redirectTo);
-    buttText = "ee"
-  }
+  
 }
 
+ Skip() {
+  var profiles = ["amirachebli", "arbi_mogaadi","nassimbourguiba","nass.mzughi","arabambition_","mahdi.baccouch","motivation_gagnant",
+  "nourkamark","rayen_officiel_9","mortadha_benouanes","meriem_ben_moulehem__malika","hassanayari","souhir_sah","zina_gassrinia",
+  "chawat____22","djalilpalermo_off","marc.lamti","hamza_lahmar7","maaloul_ali_","_amal_fathi","emna_lotfi"];
+  var userFollow = 'meme.zone.gl';
+  const min = 0;
+  const max = profiles.length - 1;
+  const rand = parseInt((min + Math.random() * (max - min)).toString());
+  userFollow = profiles[rand];
+  const redirectTo = 'window.location = "' + this.state.mainUrl + userFollow + '"';
+  this.state.webview.injectedJavaScript =this.state.runFirst;
+  this.state.webview.injectJavaScript(redirectTo);
+}
+ Add(event) {
+   if(event.nativeEvent.data == "Follow clicked")
+     this.setState( {credit: this.state.credit +2});
+  this.Skip();
+}
 
-
-function handleHelpPress() {
+ handleHelpPress() {
   WebBrowser.openBrowserAsync(
     'https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet'
   );
 }
 
-const styles = StyleSheet.create({
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: 'center',
-  },
-});
+
+}
